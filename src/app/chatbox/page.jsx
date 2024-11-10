@@ -23,7 +23,7 @@ const page = () => {
 
 
   return (
-    <div className='bg-gray-300  min h-screen pt-10'>
+    <div className='bg-gray-300  min-h-screen pt-10'>
 
       <h1 className='text-center fond-bold text-4xl my-5'>Chat Box</h1>
 
@@ -33,7 +33,7 @@ const page = () => {
 
             messageN.map((msg, index) => {
 
-                return <div key={index} className='border p-3 w-1/2 bg-gradient-to-r from-gray-200 via-lime-200 to-lime-400 rounded-full mb-4 shadow'>
+                return <div key={index} className='border p-3  bg-gradient-to-r from-gray-200 via-lime-200 to-lime-400 rounded-full mb-4 shadow w-fit'>
                 <p className='text-xl '>{msg.text}</p>
       
                     </div>
