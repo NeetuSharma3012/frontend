@@ -36,7 +36,7 @@ const signupform = () => {
       password: '',
       confirmPassword: ''
     },
-    onSubmit: (values, { resetForm }) => {
+    onSubmit: (values, { resetForm, setSubmitting }) => {
 
       // setTimeout(() => {
       //     console.log(values);
@@ -50,7 +50,10 @@ const signupform = () => {
           resetForm();
           router.push('/login');
         }).catch((err) => {
-          toast.error('error');
+          console.log(err);
+          
+          toast.error(err?.response?.data?.message || 'something went wrong');
+          setSubmitting(false);
         });
 
       //send values to backend
@@ -60,7 +63,7 @@ const signupform = () => {
   })
 
   return (
-    <div >
+    
       <div className='min-h-screen'>
         <div className="max-w-lg mx-auto mt-7 bg-white border border-gray-200 rounded-xl shadow-sm dark:bg-neutral-900 dark:border-neutral-700">
           <div className="p-4 sm:p-7">
@@ -226,9 +229,12 @@ const signupform = () => {
                         </svg>
                       </div>
                     </div>
-                    <p className="hidden text-xs text-red-600 mt-2" id="password-error">
-                      8+ characters required
+                    {(form.errors.password && form.touched.password)&&(
+                      <p className=" text-xs text-red-600 mt-2" id="password-error">
+                     {form.errors.password}
                     </p>
+                  )}
+                    
                   </div>
                   {/* End Form Group */}
 
@@ -263,12 +269,14 @@ const signupform = () => {
                         </svg>
                       </div>
                     </div>
-                    <p
-                      className="hidden text-xs text-red-600 mt-2"
-                      id="confirm-password-error"
-                    >
-                      Password does not match the password
-                    </p>
+                    {
+                      (form.errors.confirmPassword && form.touched.confirmPassword)&&(<p
+                        className=" text-xs text-red-600 mt-2"
+                        id="confirm-password-error"
+                      >
+                        {form.errors.confirmPassword}
+                      </p>)
+                    }
                   </div>
                   {/* End Form Group */}
                   {/* Checkbox */}
@@ -311,7 +319,7 @@ const signupform = () => {
         </div>
 
       </div>
-    </div>
+    
   )
 }
 
